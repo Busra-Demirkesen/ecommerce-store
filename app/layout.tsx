@@ -1,5 +1,6 @@
 
 
+import React from "react";
 import "./globals.css";
 import { Urbanist } from "next/font/google";
 import Footer from "@/components/footer";
