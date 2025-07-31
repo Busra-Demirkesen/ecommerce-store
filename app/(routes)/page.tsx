@@ -3,7 +3,7 @@ import Container from "@/components/ui/container";
 import { Billboard } from "@/components/billboard";
 import getBillboards from "@/actions/get-billboard";
 import getProducts from "@/actions/get-products";
-
+import ProductList from "@/components/product-list";
 
 export const revalidate = 0;
 
@@ -19,7 +19,7 @@ const HomePage = async() => {
             <Billboard data={billboard}/>
         </div>
         <div className="flex flex-col gap-y-8 px-4 sm:px-6 lg:px-8">
-          <ProductList title="Featured Products" item={products}/>
+          <ProductList title="Featured Products" items={products}/>
         </div>
       </Container>
       
