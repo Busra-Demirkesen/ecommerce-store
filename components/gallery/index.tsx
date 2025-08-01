@@ -1,45 +1,53 @@
 'use client';
-import { Tab, TabGroup, TabList, TabPanel, TabPanels } from '@headlessui/react';
+
+import { Tab } from '@headlessui/react';
 import Image from 'next/image';
-import { Image as ImageType} from '@/types';
+import { Image as ImageType } from '@/types';
 import GalleryTab from './gallery-tab';
 
 interface GalleryProps {
   images: ImageType[];
 }
 
-const Gallery:React.FC<GalleryProps> = ({
-  images
-}) =>{
+const Gallery: React.FC<GalleryProps> = ({ images }) => {
   return (
-    <div>
-      <TabGroup as='div' className="flex flex-col-reverse">
-        <div className='mx-auto mt-6 hidden w-full max-w-2xl sm:block lg:max-w-none'>
-          <TabList className="grid grid-cols-4 gap-6">
-            {images.map((image) => (
-              <GalleryTab key={image.id} image={image}/>
-            ))}
-          </TabList>
-        </div>
-        <TabPanels className="aspect-square w-full">
-            {images.map((image) => (
-              <TabPanel key={image.id}>
-                  <div className='aspect-square relative h-full w-full sm:rounded-lg overflow-hidden'>
-                    <Image
-                        fill
-                        src={image.url}
-                        alt=''
-                        className='object-cover object-center'
-                    
-                    />
+    <div className="w-full">
 
-                  </div>
-              </TabPanel>
-            ))}
-        </TabPanels>
-      </TabGroup>
+      <Tab.Group as="div" className="flex flex-col lg:flex-row gap-y-6 lg:gap-x-8">
+  {/* LEFT: Thumbnails + Main Image */}
+  <div className="w-full lg:w-1/2">
+    {/* Main image panels */}
+    <Tab.Panels className="w-full mb-4">
+      {images.map((image) => (
+        <Tab.Panel key={image.id}>
+          <div className="aspect-square relative w-full max-w-2xl mx-auto overflow-hidden rounded-lg border border-gray-200 shadow-sm">
+            <Image
+              fill
+              src={image.url}
+              alt=""
+              className="object-cover object-center"
+            />
+          </div>
+        </Tab.Panel>
+      ))}
+    </Tab.Panels>
+
+    {/* Thumbnail list */}
+    <div className="mx-auto mt-2 hidden w-full max-w-2xl sm:block lg:max-w-none">
+      <Tab.List className="grid grid-cols-4 gap-4">
+        {images.map((image) => (
+          <GalleryTab key={image.id} image={image} />
+        ))}
+      </Tab.List>
     </div>
-  )
-}
+  </div>
+
+  {/* RIGHT: Info alanı */}
+  {/* <div className="w-full lg:w-1/2 px-4">İçerik buraya</div> */}
+</Tab.Group>
+
+    </div>
+  );
+};
 
 export default Gallery;
